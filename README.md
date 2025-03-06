@@ -94,3 +94,12 @@ service:
       processors: [resourcedetection]
       exporters: [otlp]
 ```
+## Preview
+<img width="1470" alt="Screenshot 2025-03-06 at 2 37 49 PM" src="https://github.com/user-attachments/assets/dc5811ad-0e80-42f5-a975-07afdf7d44ab"/>
+<img width="1470" alt="Screenshot 2025-03-06 at 2 38 59 PM" src="https://github.com/user-attachments/assets/83bbdf53-dfe9-41dc-a502-806532c3cd33"/>
+<img width="1470" alt="Screenshot 2025-03-06 at 2 39 41 PM" src="https://github.com/user-attachments/assets/e67dfdd2-5b88-4472-ac52-ee28ee420288" />
+
+
+
+
+
