@@ -1,0 +1,21 @@
+version: '3'
+services:
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.96.0
+    container_name: otel-collector
+    command: ["--config=/etc/otel/config.yaml"]
+    user: "0:0"
+    volumes:
+      - ./config.yaml:/etc/otel/config.yaml
+      - /:/hostfs:ro
+      - /proc:/hostfs/proc:ro
+      - /sys:/hostfs/sys:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/hostname:/etc/hostname:ro  # Direct mount of host's hostname
+    environment:
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=hostmetrics,host.name=${HOST_HOSTNAME}
+    restart: unless-stopped
+    privileged: true
+    cap_add:
+      - SYS_PTRACE
+      - DAC_READ_SEARCH

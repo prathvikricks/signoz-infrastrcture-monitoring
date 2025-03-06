@@ -1,0 +1,40 @@
+receivers:
+  hostmetrics:
+    collection_interval: 60s
+    root_path: /hostfs
+    scrapers:
+      cpu: {}
+      load: {}
+      memory: {}
+      disk: {}
+      filesystem: {}
+      network: {}
+      processes: {}
+
+processors:
+  resourcedetection:
+    detectors: [env, system]
+    system:
+      hostname_sources: [os]
+    timeout: 2s
+
+extensions:
+  health_check: {}
+  zpages: {}
+
+exporters:
+  otlp:
+    endpoint: "172.105.42.33:4317"
+    tls:
+      insecure: true
+
+service:
+  telemetry:
+    metrics:
+      address: 0.0.0.0:8888
+  extensions: [health_check, zpages]
+  pipelines:
+    metrics/hostmetrics:
+      receivers: [hostmetrics]
+      processors: [resourcedetection]
+      exporters: [otlp]
