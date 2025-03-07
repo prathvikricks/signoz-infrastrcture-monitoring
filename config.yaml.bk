@@ -11,17 +11,6 @@ receivers:
       network: {}
       processes: {}
 
-  # Add filelog receiver for system logs
-  filelog:
-    include: [/hostfs/var/log/**/*.log]
-    start_at: end
-    include_file_name: true
-    include_file_path_resolved: true
-    operators:
-      - type: move
-        from: attributes["log.file.path_resolved"]
-        to: attributes["log.file.name"]
-
 processors:
   resourcedetection:
     detectors: [env, system]
@@ -47,11 +36,5 @@ service:
   pipelines:
     metrics/hostmetrics:
       receivers: [hostmetrics]
-      processors: [resourcedetection]
-      exporters: [otlp]
-    
-    # Add logs pipeline
-    logs/system_logs:
-      receivers: [filelog]
       processors: [resourcedetection]
       exporters: [otlp]

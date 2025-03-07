@@ -11,9 +11,7 @@ services:
       - /proc:/hostfs/proc:ro
       - /sys:/hostfs/sys:ro
       - /var/run/docker.sock:/var/run/docker.sock
-      - /etc/hostname:/etc/hostname:ro
-      # Add log directory mounts
-      - /var/log:/hostfs/var/log:ro
+      - /etc/hostname:/etc/hostname:ro  # Direct mount of host's hostname
     environment:
       - OTEL_RESOURCE_ATTRIBUTES=service.name=hostmetrics,host.name=${HOST_HOSTNAME}
     restart: unless-stopped
